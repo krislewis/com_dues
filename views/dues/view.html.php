@@ -115,24 +115,19 @@ class DuesViewDues extends JViewLegacy
 
 		if (count($user->getAuthorisedCategories('com_dues', 'core.create')) > 0)
 		{
-			JToolbarHelper::addNew('dues.add');
-			JToolbarHelper::publish('dues.publish', 'JTOOLBAR_PUBLISH', true);
-			JToolbarHelper::unpublish('dues.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+
 			
 		}
 
-		// Add a batch button
+		// Add buttons
 		if ($user->authorise('core.create', 'com_dues')
 			&& $user->authorise('core.edit', 'com_dues')
 			&& $user->authorise('core.edit.state', 'com_dues'))
 		{
-			$title = JText::_('JTOOLBAR_BATCH');
-
-			// Instantiate a new JLayoutFile instance and render the batch button
-			$layout = new JLayoutFile('joomla.toolbar.batch');
-
-			$dhtml = $layout->render(array('title' => $title));
-			JToolbar::getInstance('toolbar')->appendButton('Custom', $dhtml, 'batch');
+			JToolbarHelper::addNew('due.add');
+			JToolbarHelper::publish('due.publish', 'JTOOLBAR_PUBLISH', true);
+			JToolbarHelper::unpublish('due.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+			
 		}
 
 		if ($this->state->get('filter.published') == -2)
