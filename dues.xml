@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade">
+	<name>com_dues</name>
+	<author>Joomla! Project</author>
+	<creationDate>April 2006</creationDate>
+	<copyright>(C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>kris@kristoferlewis.com</authorEmail>
+	<authorUrl>www.joomla.org</authorUrl>
+	<version>3.0.0</version>
+	<description>User Dues Component</description>
+
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<administration>
+		<menu img="class:dues">COM_DUES</menu>
+		<submenu>
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+			<menu link="option=com_dues" img="class:dues"
+				alt="Due/Dues">COM_DUE_DUES</menu>
+			<menu link="option=com_categories&amp;extension=com_dues"
+				view="categories" img="class:dues-cat" alt="Dues/Categories">COM_DUES_CATEGORIES</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>dues.php</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+		<languages folder="administrator/components/com_dues/language">
+			<language tag="en-GB">en-GB/en-GB.com_dues.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_dues.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
+

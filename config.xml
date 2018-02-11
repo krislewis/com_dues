@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+	<fieldset
+		name="due"
+		label="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DISPLAY"
+		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
+		addfieldpath="/administrator/components/com_fields/models/fields"
+		>
+
+	</fieldset>
+
+	<fieldset
+		name="Icons"
+		label="COM_DUES_ICONS_SETTINGS"
+		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
+		>
+
+		
+	</fieldset>
+
+
+
+	<fieldset
+		name="dues"
+		label="JGLOBAL_LIST_LAYOUT_OPTIONS"
+		description="COM_DUES_FIELD_CONFIG_TABLE_OF_CONTACTS_DESC"
+		>
+
+		<field
+			name="filter_field"
+			type="radio"
+			label="JGLOBAL_FILTER_FIELD_LABEL"
+			description="JGLOBAL_FILTER_FIELD_DESC"
+			default="0"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="show_pagination_limit"
+			type="radio"
+			label="JGLOBAL_DISPLAY_SELECT_LABEL"
+			description="JGLOBAL_DISPLAY_SELECT_DESC"
+			default="0"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+
+		<field
+			name="show_pagination"
+			type="list"
+			label="JGLOBAL_PAGINATION_LABEL"
+			description="JGLOBAL_PAGINATION_DESC"
+			default="2"
+			>
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+			<option value="2">JGLOBAL_AUTO</option>
+		</field>
+
+		<field
+			name="show_pagination_results"
+			type="radio"
+			label="JGLOBAL_PAGINATION_RESULTS_LABEL"
+			description="JGLOBAL_PAGINATION_RESULTS_DESC"
+			default="1"
+			class="btn-group btn-group-yesno"
+			showon="show_pagination:1,2"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="initial_sort"
+			type="list"
+			label="COM_DUES_FIELD_INITIAL_SORT_LABEL"
+			description="COM_DUES_FIELD_INITIAL_SORT_DESC"
+			default="ordering"
+			validate="options"
+			>
+			<option value="name">COM_DUES_FIELD_VALUE_NAME</option>
+			<option value="sortname">COM_DUES_FIELD_VALUE_SORT_NAME</option>
+			<option value="ordering">COM_DUES_FIELD_VALUE_ORDERING</option>
+		</field>
+
+	</fieldset>
+
+	<fieldset
+		name="Dues_Form"
+		label="COM_DUES_FIELD_CONFIG_DUES_FORM"
+		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
+		>
+
+		<field
+			name="captcha"
+			type="plugins"
+			label="COM_DUES_FIELD_CAPTCHA_LABEL"
+			description="COM_DUES_FIELD_CAPTCHA_DESC"
+			folder="captcha"
+			filter="cmd"
+			useglobal="true"
+			>
+			<option value="0">JOPTION_DO_NOT_USE</option>
+		</field>
+
+		<field
+			name="show_email_form"
+			type="radio"
+			label="COM_DUES_FIELD_EMAIL_SHOW_FORM_LABEL"
+			description="COM_DUES_FIELD_EMAIL_SHOW_FORM_DESC"
+			default="1"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+	</fieldset>
+
+
+	<fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC"
+		>
+
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			validate="rules"
+			filter="rules"
+			component="com_dues"
+			section="component"
+		/>
+
+	</fieldset>
+</config>
