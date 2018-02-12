@@ -99,6 +99,7 @@ if (!empty($editor))
 					2  => 'icon-archive',
 				);
 				?>
+				<?php foreach ($this->items as $i => $item) : ?>
 				<?php 
 						$lang = '';
 					
@@ -108,7 +109,7 @@ if (!empty($editor))
 							<span class="<?php echo $iconStates[$this->escape($item->published)]; ?>" aria-hidden="true"></span>
 						</td>
 						<td>
-							<a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape(addslashes($item->name)); ?>" data-uri="<?php echo $this->escape(DuesHelperRoute::getDuesRoute($item->id, $item->catid, $item->language)); ?>" data-language="<?php echo $this->escape($lang); ?>">
+							<a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape(addslashes($item->name)); ?>">
 								<?php echo $this->escape($item->name); ?>
 							</a>
 							<?php echo $this->escape($item->name); ?></a>
