@@ -113,12 +113,6 @@ class DuesViewDues extends JViewLegacy
 
 		JToolbarHelper::title(JText::_('COM_DUES_MANAGER_DUES'), 'address dues');
 
-		if (count($user->getAuthorisedCategories('com_dues', 'core.create')) > 0)
-		{
-
-			
-		}
-
 		// Add buttons
 		if ($user->authorise('core.create', 'com_dues')
 			&& $user->authorise('core.edit', 'com_dues')
@@ -147,24 +141,5 @@ class DuesViewDues extends JViewLegacy
 		JToolbarHelper::help('JHELP_COMPONENTS_DUES_DUES');
 
 		JHtmlSidebar::setAction('index.php?option=com_dues');
-	}
-
-	/**
-	 * Returns an array of fields the table can be sorted by
-	 *
-	 * @return  array  Array containing the field name to sort by as the key and display text as value
-	 *
-	 * @since   3.0
-	 */
-	protected function getSortFields()
-	{
-		return array(
-			'a.ordering'     => JText::_('JGRID_HEADING_ORDERING'),
-			'a.published'    => JText::_('JSTATUS'),
-			'a.year'         => JText::_('year'),
-			'ul.name'        => JText::_('COM_DUES_FIELD_LINKED_USER_LABEL'),
-			'a.status'  	 => JText::_('JSTATUS'),
-			'a.id'           => JText::_('JGRID_HEADING_ID')
-		);
 	}
 }

@@ -101,7 +101,7 @@ if ($saveOrder)
 						</td>
 						<td class="center">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->published, $i); ?>
+								<?php echo JHtml::_('jgrid.published', $item->published, $i, 'dues.',$canChange); ?>
 								<?php // Create dropdown items and render the dropdown list.
 								if ($canChange)
 								{
