@@ -285,27 +285,15 @@ class DuesModelDue extends JModelAdmin
 	{
 		$date = JFactory::getDate()->toSql();
 
-		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
+		//$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
 
-		$table->generateAlias();
 
 		if (empty($table->id))
 		{
 			// Set the values
 			$table->created = $date;
-
-			// Set ordering to the last item if not set
-			if (empty($table->ordering))
-			{
-				$db = $this->getDbo();
-				$query = $db->getQuery(true)
-					->select('MAX(ordering)')
-					->from($db->quoteName('#__user_dues'));
-				$db->setQuery($query);
-				$max = $db->loadResult();
-
-				$table->ordering = $max + 1;
-			}
+			$table->created_by = JFactory::getUser()->id;
+			
 		}
 		else
 		{
@@ -314,8 +302,6 @@ class DuesModelDue extends JModelAdmin
 			$table->modified_by = JFactory::getUser()->id;
 		}
 
-		// Increment the content version number.
-		$table->version++;
 	}
 
 

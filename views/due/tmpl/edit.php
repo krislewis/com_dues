@@ -36,8 +36,7 @@ JFactory::getDocument()->addScriptDeclaration("
 				<?php echo $this->form->renderField('user_id'); ?>
 				<?php echo $this->form->renderField('published'); ?>
 				<?php echo $this->form->renderField('status'); ?>
-				<?php echo $this->form->renderField('id'); ?>
-				<?php echo $this->form->renderField('created'); ?>
+				
 				
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>

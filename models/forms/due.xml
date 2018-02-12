@@ -2,7 +2,7 @@
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_categories/models/fields">
-
+		<!--
 		<field
 			name="id"
 			type="number"
@@ -23,7 +23,7 @@
 			size="40"
 			required="true"
 		 />
-
+		-->
 
 
 		<field
