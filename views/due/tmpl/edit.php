@@ -31,9 +31,9 @@ JFactory::getDocument()->addScriptDeclaration("
 	<fieldset>
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'basic')); ?>
 
-			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic', empty($this->item->id) ? JText::_('COM_REDIRECT_NEW_LINK') : JText::sprintf('COM_REDIRECT_EDIT_LINK', $this->item->id)); ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic', empty($this->item->id) ? JText::_('COM_DUES_NEW_DUES') : JText::sprintf('COM_DUES_EDIT_LINK', $this->item->id)); ?>
 				<?php echo $this->form->renderField('year'); ?>
-				<?php echo $this->form->renderField('name'); ?>
+				<?php echo $this->form->renderField('user_id'); ?>
 				<?php echo $this->form->renderField('published'); ?>
 				<?php echo $this->form->renderField('status'); ?>
 				<?php echo $this->form->renderField('id'); ?>

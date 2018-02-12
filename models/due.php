@@ -192,7 +192,7 @@ class DuesModelDue extends JModelAdmin
 		JForm::addFieldPath('JPATH_ADMINISTRATOR/components/com_users/models/fields');
 
 		// Get the form.
-		$form = $this->loadForm('com_dues.dues', 'dues', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_dues.due', 'due', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
 		{
@@ -243,7 +243,7 @@ class DuesModelDue extends JModelAdmin
 		$app = JFactory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('com_dues.edit.dues.data', array());
+		$data = $app->getUserState('com_dues.edit.due.data', array());
 
 		if (empty($data))
 		{
@@ -252,7 +252,7 @@ class DuesModelDue extends JModelAdmin
 			
 		}
 
-		$this->preprocessData('com_dues.dues', $data);
+		$this->preprocessData('com_dues.due', $data);
 
 		return $data;
 	}

@@ -56,7 +56,7 @@
 			type="ordering"
 			label="JFIELD_ORDERING_LABEL"
 			description="JFIELD_ORDERING_DESC"
-			content_type="com_dues.dues"
+			content_type="com_dues.due"
 		/>
 
 	</fieldset>
@@ -77,7 +77,6 @@
 			label="COM_DUES_FIELD_YEAR"
 			description="COM_DUES_FIELD_YEAR_DESC"
 			class="chzn-color"
-			useglobal="true"
 			>
 			<option value="2017">2017</option>
 			<option value="2018">2018</option>
@@ -86,13 +85,12 @@
 		<field
 			name="status"
 			type="list"
-			label="COM_DUES_FIELD_SHOW_TAGS_LABEL"
-			description="COM_DUES_FIELD_SHOW_TAGS_DESC"
+			label="COM_DUES_FIELD_SHOW_STATUS_LABEL"
+			description="COM_DUES_FIELD_SHOW_STATUS_DESC"
 			class="chzn-color"
-			useglobal="true"
 			>
-			<option value="0">Paid</option>
-			<option value="1">Owed</option>
+			<option value="0">Owed</option>
+			<option value="1">Paid</option>
 		</field>
 		
 
