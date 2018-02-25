@@ -23,16 +23,7 @@
 
 	<administration>
 		<menu img="class:dues">COM_DUES</menu>
-		<submenu>
-			<!--
-				Note that all & must be escaped to &amp; for the file to be valid
-				XML and be parsed by the installer
-			-->
-			<menu link="option=com_dues" img="class:dues"
-				alt="Due/Dues">COM_DUES_DUES</menu>
-			<menu link="option=com_categories&amp;extension=com_dues"
-				view="categories" img="class:dues-cat" alt="Dues/Categories">COM_DUES_CATEGORIES</menu>
-		</submenu>
+		
 		<files folder="admin">
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
