@@ -29,7 +29,7 @@
 				XML and be parsed by the installer
 			-->
 			<menu link="option=com_dues" img="class:dues"
-				alt="Due/Dues">COM_DUE_DUES</menu>
+				alt="Due/Dues">COM_DUES_DUES</menu>
 			<menu link="option=com_categories&amp;extension=com_dues"
 				view="categories" img="class:dues-cat" alt="Dues/Categories">COM_DUES_CATEGORIES</menu>
 		</submenu>
