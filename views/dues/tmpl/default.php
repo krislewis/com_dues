@@ -55,14 +55,14 @@ if ($saveOrder)
 						<th class="nowrap hidden-phone hidden-tablet">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_YEAR', 'a.year', $listDirn, $listOrder); ?>
 						</th>
-						<th width="1%" style="min-width:55px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
+						<th style="min-width:55px" class="nowrap center">
+							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_STATUS', 'a.published', $listDirn, $listOrder); ?>
 						</th>
 						
 
 						
 
-						<th width="1%" class="nowrap hidden-phone">
+						<th class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 						</th>
 						
@@ -116,7 +116,7 @@ if ($saveOrder)
 						<td class="small break-word hidden-phone hidden-tablet">
 							<?php echo $this->escape($item->id); ?>
 						</td>
-						<td></td>
+						
 					</tr>
 					<?php endforeach; ?>
 				</tbody>

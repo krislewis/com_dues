@@ -121,6 +121,16 @@ class DuesViewDues extends JViewLegacy
 			JToolbarHelper::addNew('due.add');
 			JToolbarHelper::publish('due.publish', 'JTOOLBAR_PUBLISH', true);
 			JToolbarHelper::unpublish('due.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+			// Get the toolbar object instance
+			$bar = JToolbar::getInstance('toolbar');
+
+			$title = JText::_('COM_DUES_TOOLBAR_BATCH');
+
+			// Instantiate a new JLayoutFile instance and render the batch button
+			$layout = new JLayoutFile('toolbar.batch');
+
+			$dhtml = $layout->render(array('title' => $title));
+			$bar->appendButton('Custom', $dhtml, 'batch');
 			
 		}
 

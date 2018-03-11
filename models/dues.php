@@ -205,4 +205,56 @@ class DuesModelDues extends JModelList
 
 		return $query;
 	}
+	/**
+	 * Add the entered URLs into the database
+	 *
+	 * @param   array  $batch_urls  Array of URLs to enter into the database
+	 *
+	 * @return bool
+	 */
+	public function batchProcess($batch_year)
+	{
+		function getActiveMembers()
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+			// Select the required fields from the table.
+			$query->select($db->quoteName('a.user_id'));
+			$query->from($db->quoteName('#__comprofiler', 'a'));
+			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND ' . $db->quoteName('a.cb_memberstatus') . ' = "Active")');
+			$db->setQuery($query);
+			return $db->loadColumn();
+		}
+		$ActiveMembers = getActiveMembers();
+
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$user = JFactory::getUser();
+		$columns = array(
+			$db->quoteName('user_id'),
+			$db->quoteName('year'),
+			$db->quoteName('status'),
+			$db->quoteName('created'),
+			$db->quoteName('created_by'),
+			$db->quoteName('published')
+		);
+
+		$query->columns($columns);
+
+		foreach ($ActiveMembers as $ActiveMember)
+		{
+			//Magento API call to check for category and create if not exist, then add item to it
+
+			$query->insert($db->quoteName('#__user_dues'), false)
+				->values(
+					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
+					$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
+				);
+		}
+
+		$db->setQuery($query);
+		$db->execute();
+
+		return true;
+	}
 }

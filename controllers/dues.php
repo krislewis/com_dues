@@ -97,4 +97,30 @@ class DuesControllerDues extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_dues&view=dues');
 	}
+	/**
+	 * Executes the batch process to add URLs to the database
+	 *
+	 * @return  void
+	 */
+	public function batch()
+	{
+		$batch_year_request = $this->input->post->get('batch_year', '', 'INT');
+		
+
+		// Set default message on error - overwrite if successful
+		$this->setMessage(JText::_('COM_DUES_NO_ITEM_ADDED'), 'error');
+
+		if (!empty($batch_year_request))
+		{
+			$model = $this->getModel('Dues');
+
+			// Execute the batch process
+			if ($model->batchProcess($batch_year_request))
+			{
+				$this->setMessage(JText::_('COM_DUES_ITEMS_ADDED'));
+			}
+		}
+
+		$this->setRedirect('index.php?option=com_dues');
+	}
 }
