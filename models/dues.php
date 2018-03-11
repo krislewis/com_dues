@@ -244,7 +244,7 @@ class DuesModelDues extends JModelList
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			//Magento API call to check for category and create if not exist, then add item to it
-
+			
 			$query->insert($db->quoteName('#__user_dues'), false)
 				->values(
 					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 

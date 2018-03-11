@@ -29,6 +29,7 @@
 			<filename>config.xml</filename>
 			<filename>dues.php</filename>
 			<filename>controller.php</filename>
+			<filename>credentials.php</filename>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
 			<folder>models</folder>
