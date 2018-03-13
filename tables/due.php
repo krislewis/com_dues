@@ -139,6 +139,13 @@ class DuesTableDue extends JTable
 			// Change the state
 			$table->status = $state;
 
+			$table->modified = JFactory::getDate()->toSql();
+			$table->modified_by = $userId;
+			if ($state){
+				$table->date_paid = JFactory::getDate()->toSql();
+			}else{
+				$table->date_paid = "0000-00-00";
+			}
 
 			// Check the row
 			$table->check();

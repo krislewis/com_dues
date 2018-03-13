@@ -55,6 +55,9 @@ if ($saveOrder)
 						<th class="nowrap hidden-phone hidden-tablet">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_YEAR', 'a.year', $listDirn, $listOrder); ?>
 						</th>
+						<th class="nowrap hidden-phone hidden-tablet">
+							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_DATE_PAID', 'a.date_paid', $listDirn, $listOrder); ?>
+						</th>						
 						<th style="min-width:55px" class="nowrap center">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_STATUS', 'a.published', $listDirn, $listOrder); ?>
 						</th>
@@ -98,6 +101,9 @@ if ($saveOrder)
 						
 						<td class="small break-word hidden-phone hidden-tablet">
 							<?php echo $this->escape($item->year); ?>
+						</td>
+						<td class="small break-word hidden-phone hidden-tablet">
+							<?php echo $this->escape($item->date_paid); ?>
 						</td>
 						<td class="center">
 							<div class="btn-group">
