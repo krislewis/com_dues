@@ -221,15 +221,24 @@ class DuesModelDues extends JModelList
 			// Select the required fields from the table.
 			$query->select($db->quoteName('a.user_id'));
 			$query->from($db->quoteName('#__comprofiler', 'a'));
-			$query->join('LEFT', $db->quoteName('#__users_dues', 'ud') . ' ON ' . $db->quoteName('ud.user_id') . ' = ' . $db->quoteName('a.user_id'));
-			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND ' . $db->quoteName('a.cb_memberstatus') . ' = "Active" AND ' .
-						$db->quoteName('ud.year') . '!=' . $batch_year . ')'
-			);
+			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND ' . $db->quoteName('a.cb_memberstatus') . ' = "Active")');
+			$db->setQuery($query);
+			return $db->loadColumn();
+		}
+		function getBatchYearDues($batch_year)
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+			// Select the required fields from the table.
+			$query->select($db->quoteName('a.user_id'));
+			$query->from($db->quoteName('#__user_dues', 'a'));
+			$query->where($db->quoteName('a.year') . ' =' . (int)$batch_year);
 			$db->setQuery($query);
 			return $db->loadColumn();
 		}
 		$ActiveMembers = getActiveMembers();
-
+		$BatchYearDues = getBatchYearDues($batch_year);
+		
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$user = JFactory::getUser();
@@ -246,13 +255,15 @@ class DuesModelDues extends JModelList
 
 		foreach ($ActiveMembers as $ActiveMember)
 		{
-			//Magento API call to check for category and create if not exist, then add item to it
-			
-			$query->insert($db->quoteName('#__user_dues'), false)
-				->values(
-					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
-					$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
-				);
+			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
+				//Magento API call to check for category and create if not exist, then add item to it
+				
+				$query->insert($db->quoteName('#__user_dues'), false)
+					->values(
+						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
+						$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
+					);
+			}
 		}
 
 		$db->setQuery($query);
