@@ -7,17 +7,18 @@
 		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
 		addfieldpath="/administrator/components/com_fields/models/fields"
 		>
-
+		<field
+			name="dues_url"
+			type="textarea"
+			label="COM_DUES_FIELD_CONFIG_DUES_URL"
+			description="COM_DUES_FIELD_CONFIG_DUES_URL_DESC"
+			default=""
+			rows="1"
+			cols="30"
+		/>
 	</fieldset>
 
-	<fieldset
-		name="Icons"
-		label="COM_DUES_ICONS_SETTINGS"
-		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
-		>
-
-		
-	</fieldset>
+	
 
 
 

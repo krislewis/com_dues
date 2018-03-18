@@ -14,7 +14,8 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_dues'))
 {
 	throw new JAccessExceptionNotallowed(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 }
-
+$params = JComponentHelper::getParams('com_dues');
+$mage_url = htmlspecialchars($params->get('dues_url'), ENT_COMPAT, 'UTF-8');
 $controller = JControllerLegacy::getInstance('dues');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
