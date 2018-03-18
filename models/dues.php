@@ -214,6 +214,7 @@ class DuesModelDues extends JModelList
 	 */
 	public function batchProcess($batch_year)
 	{
+		include_once(JPATH_ADMINISTRATOR . '/components/com_dues/credentials.php');
 		function getActiveMembers()
 		{
 			$db    = JFactory::getDbo();
@@ -240,11 +241,11 @@ class DuesModelDues extends JModelList
 		);
 
 		$query->columns($columns);
-
+		$sessionId = $proxy->login($mage_api_user,$mage_api_key);
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			//Magento API call to check for category and create if not exist, then add item to it
-			
+			$cat_exists = $proxy->call($sessionId, 'category_category.info', $ActiveMember);
 			$query->insert($db->quoteName('#__user_dues'), false)
 				->values(
 					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
