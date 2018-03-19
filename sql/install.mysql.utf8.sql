@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS `#__user_dues` (
   `published` tinyint(1) NOT NULL DEFAULT 0,
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_year_idx` (`user_id`,`year`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
