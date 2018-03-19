@@ -163,7 +163,7 @@ class DuesTableDue extends JTable
 			$mage_api_key = htmlspecialchars($params->get('dues_api_key'), ENT_COMPAT, 'UTF-8');
 			$mage_api_user = htmlspecialchars($params->get('dues_api_user'), ENT_COMPAT, 'UTF-8');
 			$mage_loc = htmlspecialchars($params->get('dues_loc'), ENT_COMPAT, 'UTF-8');
-			$client_url =  rtrim($mage_url, '/') . '/index.php/api/index/index/wsdl/1/';
+			$client_url =  rtrim($mage_url, '/') . '/api/soap/?wsdl' ;
 			
 			$client = new SoapClient($client_url);
 			
