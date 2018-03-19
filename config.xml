@@ -3,8 +3,8 @@
 
 	<fieldset
 		name="due"
-		label="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DISPLAY"
-		description="COM_DUES_FIELD_CONFIG_INDIVIDUAL_DUES_DESC"
+		label="COM_DUES_FIELD_CONFIG_DUES_DISPLAY"
+		description="COM_DUES_FIELD_CONFIG_DUES_DESC"
 		addfieldpath="/administrator/components/com_fields/models/fields"
 		>
 		<field
