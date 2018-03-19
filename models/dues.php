@@ -245,24 +245,24 @@ class DuesModelDues extends JModelList
 		$query = $db->getQuery(true);
 		$user = JFactory::getUser();
 		$columns = array(
-			$db->quoteName('user_id'),
-			$db->quoteName('year'),
-			$db->quoteName('status'),
-			$db->quoteName('created'),
-			$db->quoteName('created_by'),
-			$db->quoteName('published')
+			'user_id',
+			'year',
+			'status',
+			'created',
+			'created_by',
+			'published'
 		);
 		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
-		
+		$query->insert($db->quoteName('#__user_dues'), false)
+					->columns($db->quoteName($columns));
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
 				DuesHelper::mageUpdate($ActiveMember, $batch_year);
-				$query->insert($db->quoteName('#__user_dues'), false)
-					->columns($db->quoteName($columns))
-					->values(
-						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
+				
+					$query->values(
+						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' , 0, ' . 
 						$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
 					);
 			}
