@@ -130,12 +130,12 @@ class DuesHelper extends JHelperContent
 	 * 
 	 * 
 	*/
-	public static function mageUpdate($table, $state = 0)
+	public static function mageUpdate($user_id, $year, $state = 0)
 	{
 		//api magento call to first check if item exists, if not create, adjust inventory, flush
 		$inv_qty = $state ? '0' : '1';
 		$params = JComponentHelper::getParams('com_dues');
-		$member = JFactory::getUser($table->user_id);
+		$member = JFactory::getUser($user_id);
 		$member_name = $member->name;
 		$mage_url = htmlspecialchars($params->get('dues_url'), ENT_COMPAT, 'UTF-8');
 		$mage_api_key = htmlspecialchars($params->get('dues_api_key'), ENT_COMPAT, 'UTF-8');
@@ -163,20 +163,20 @@ class DuesHelper extends JHelperContent
 		$client = new SoapClient($client_url);
 		
 		$session = $client->login($mage_api_user,$mage_api_key);
-		$sku = $table->user_id . '-' . $table->year;
+		$sku = $user_id . '-' . $year;
 		$cat_result = $client->call($session, 'catalog_category.level', array(null, null, 2));
 		
 		//check if cat exists
 		$cat_exists = false;
 		foreach ($cat_result as $r => $result) {
-			if($result["name"] == $table->user_id){
+			if($result["name"] == $user_id){
 				$cat_exists = true;
 				$cat_id = $result["category_id"];
 			}
 		}
 		if(!$cat_exists){ //create the category
 			$cat_id = $client->call($session, 'catalog_category.create', array(2, array(
-				'name' => $table->user_id,
+				'name' => $user_id,
 				'is_active' => 1,
 				'position' => 1,
 				'available_sort_by' => 'position',
@@ -186,7 +186,7 @@ class DuesHelper extends JHelperContent
 				'custom_design_to' => null,
 				'custom_layout_update' => null,
 				'default_sort_by' => 'position',
-				'description' => $table->user_id . ' Dues',
+				'description' => $user_id . ' Dues',
 				'display_mode' => null,
 				'is_anchor' => 0,
 				'landing_page' => null,
@@ -194,7 +194,7 @@ class DuesHelper extends JHelperContent
 				'meta_keywords' => 'Category meta keywords',
 				'meta_title' => 'Category meta title',
 				'page_layout' => 'two_columns_left',
-				'url_key' => $table->user_id,
+				'url_key' => $user_id,
 				'include_in_menu' => 0
 			)));
 		}
@@ -215,7 +215,7 @@ class DuesHelper extends JHelperContent
 			$result = $client->call($session, 'catalog_product.create', array('simple', $attributeSet['set_id'], $sku, array(
 				'categories' => array($cat_id),
 				'websites' => array(1),
-				'name' => $member_name . ' Dues for ' . $table->year,
+				'name' => $member_name . ' Dues for ' . $year,
 				'weight' => '0',
 				'status' => '1',
 				'url_key' => $sku,

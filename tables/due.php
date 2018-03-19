@@ -156,7 +156,7 @@ class DuesTableDue extends JTable
 				$this->setError($table->getError());
 			}
 			//update Magento
-			DuesHelper::mageUpdate($table, $state);
+			DuesHelper::mageUpdate($table->user_id, $table->year, $state);
 			
 		}
 

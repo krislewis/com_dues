@@ -237,15 +237,7 @@ class DuesModelDues extends JModelList
 			$db->setQuery($query);
 			return $db->loadColumn();
 		}
-		class oneMember {
-			var $user_id;
-			var $year;
-			function __construct($user_id, $year)
-			{
-				$this->user_id = $user_id;
-				$this->year = $year;
-			}
-		}
+		
 		$ActiveMembers = getActiveMembers();
 		$BatchYearDues = getBatchYearDues($batch_year);
 		
@@ -266,8 +258,7 @@ class DuesModelDues extends JModelList
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
-				$table = new oneMember($ActiveMember, $BatchYearDues);
-				DuesHelper::mageUpdate($table);
+				DuesHelper::mageUpdate($ActiveMember, $BatchYearDues);
 				$query->insert($db->quoteName('#__user_dues'), false)
 					->columns($db->quoteName($columns))
 					->values(
