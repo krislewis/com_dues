@@ -201,7 +201,7 @@ class DuesTableDue extends JTable
 					'meta_title' => 'Category meta title',
 					'page_layout' => 'two_columns_left',
 					'url_key' => $table->user_id,
-					'include_in_menu' => 1,
+					'include_in_menu' => 0
 				)));
 			}
 			//check if item exists in category
