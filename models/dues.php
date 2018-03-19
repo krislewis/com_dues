@@ -261,14 +261,14 @@ class DuesModelDues extends JModelList
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
 				DuesHelper::mageUpdate($ActiveMember, $batch_year, 0, FALSE);
-				
-					$query->values(
-						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' , 0, ' . 
-						$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
-					);
+			
+				$query->values(
+					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' , 0, ' . 
+					$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
+				);
 				$sleeper++;
-				if($sleeper > 25){
-					sleep(1.5);
+				if($sleeper > 10){
+					sleep(4);
 					$sleeper = 0;
 				}
 			}
