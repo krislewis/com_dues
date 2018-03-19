@@ -258,7 +258,7 @@ class DuesModelDues extends JModelList
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
-				DuesHelper::mageUpdate($ActiveMember, $BatchYearDues);
+				DuesHelper::mageUpdate($ActiveMember, $batch_year);
 				$query->insert($db->quoteName('#__user_dues'), false)
 					->columns($db->quoteName($columns))
 					->values(
