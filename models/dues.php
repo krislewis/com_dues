@@ -214,7 +214,7 @@ class DuesModelDues extends JModelList
 	 */
 	public function batchProcess($batch_year)
 	{
-		include_once(JPATH_ADMINISTRATOR . '/components/com_dues/credentials.php');
+		//include_once(JPATH_ADMINISTRATOR . '/components/com_dues/credentials.php');
 		function getActiveMembers()
 		{
 			$db    = JFactory::getDbo();
@@ -251,9 +251,7 @@ class DuesModelDues extends JModelList
 			$db->quoteName('created_by'),
 			$db->quoteName('published')
 		);
-
-		$query->columns($columns);
-		$sessionId = $proxy->login($mage_api_user,$mage_api_key);
+		
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist

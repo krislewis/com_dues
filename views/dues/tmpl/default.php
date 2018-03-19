@@ -57,6 +57,9 @@ if ($saveOrder)
 						</th>
 						<th class="nowrap hidden-phone hidden-tablet">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_DATE_PAID', 'a.date_paid', $listDirn, $listOrder); ?>
+						</th>
+						<th class="nowrap hidden-phone hidden-tablet">
+							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_LINK', '', $listDirn, $listOrder); ?>
 						</th>						
 						<th style="min-width:55px" class="nowrap center">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_STATUS', 'a.published', $listDirn, $listOrder); ?>
@@ -79,6 +82,10 @@ if ($saveOrder)
 					</tr>
 				</tfoot>
 				<tbody>
+				<?php 
+				$params = JComponentHelper::getParams('com_dues');
+				$mage_url = htmlspecialchars($params->get('dues_url'), ENT_COMPAT, 'UTF-8');
+				?>
 				<?php foreach ($this->items as $i => $item) :
 					$canEdit   = $user->authorise('core.edit',       'com_dues');
 					$canChange = $user->authorise('core.edit.state', 'com_dues');
@@ -104,6 +111,11 @@ if ($saveOrder)
 						</td>
 						<td class="small break-word hidden-phone hidden-tablet">
 							<?php echo $this->escape($item->date_paid); ?>
+						</td>
+						<td class="small break-word hidden-phone hidden-tablet">
+							<a href="<?php echo rtrim($mage_url, '/') . '/' . $this->escape($item->user_id) . '/' . $this->escape($item->user_id) . '-' . $this->escape($item->year) . '.html'; ?>">
+								<?php echo rtrim($mage_url, '/') . '/' . $this->escape($item->user_id) . '/' . $this->escape($item->user_id) . '-' . $this->escape($item->year) . '.html'; ?>
+							</a>
 						</td>
 						<td class="center">
 							<div class="btn-group">

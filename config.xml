@@ -16,6 +16,30 @@
 			rows="1"
 			cols="30"
 		/>
+		<field
+			name="dues_api_key"
+			type="textarea"
+			label="COM_DUES_FIELD_CONFIG_DUES_API_KEY"
+			description="COM_DUES_FIELD_CONFIG_DUES_API_KEY_DESC"
+			default=""
+			rows="1"
+		/>
+		<field
+			name="dues_api_user"
+			type="textarea"
+			label="COM_DUES_FIELD_CONFIG_DUES_API_USER"
+			description="COM_DUES_FIELD_CONFIG_DUES_API_USER_DESC"
+			default=""
+			rows="1"
+		/>
+		<field
+			name="dues_loc"
+			type="textarea"
+			label="COM_DUES_FIELD_CONFIG_DUES_LOC"
+			description="COM_DUES_FIELD_CONFIG_DUES_LOC_DESC"
+			default=""
+			rows="1"
+		/>
 	</fieldset>
 
 	
