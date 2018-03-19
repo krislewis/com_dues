@@ -237,6 +237,15 @@ class DuesModelDues extends JModelList
 			$db->setQuery($query);
 			return $db->loadColumn();
 		}
+		class member {
+			var $user_id;
+			var $year;
+			function __construct($user_id, $year)
+			{
+				$this->user_id = $user_id;
+				$this->year = $year;
+			}
+		}
 		$ActiveMembers = getActiveMembers();
 		$BatchYearDues = getBatchYearDues($batch_year);
 		
@@ -251,13 +260,16 @@ class DuesModelDues extends JModelList
 			$db->quoteName('created_by'),
 			$db->quoteName('published')
 		);
+		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
 		
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
-				
+				$table = new member($ActiveMember, $BatchYearDues);
+				DuesHelper::mageUpdate($table);
 				$query->insert($db->quoteName('#__user_dues'), false)
+					->columns($db->quoteName($columns))
 					->values(
 						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' ,' . $db->quote('0') . ', ' . 
 						$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'

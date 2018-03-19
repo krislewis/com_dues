@@ -130,7 +130,7 @@ class DuesHelper extends JHelperContent
 	 * 
 	 * 
 	*/
-	public static function mageUpdate($table, $state = 1)
+	public static function mageUpdate($table, $state = 0)
 	{
 		//api magento call to first check if item exists, if not create, adjust inventory, flush
 		$inv_qty = $state ? '0' : '1';

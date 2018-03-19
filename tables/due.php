@@ -125,7 +125,7 @@ class DuesTableDue extends JTable
 		// Get an instance of the table
 		/** @var DuesTableDue $table */
 		$table = JTable::getInstance('Due', 'DuesTable');
-
+		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
 		// For all keys
 		foreach ($pks as $pk)
 		{
@@ -155,134 +155,8 @@ class DuesTableDue extends JTable
 			{
 				$this->setError($table->getError());
 			}
-			//api magento call to first check if item exists, if not create, adjust inventory, flush
-			$params = JComponentHelper::getParams('com_dues');
-			$member = JFactory::getUser($table->user_id);
-			$member_name = $member->name;
-			$mage_url = htmlspecialchars($params->get('dues_url'), ENT_COMPAT, 'UTF-8');
-			$mage_api_key = htmlspecialchars($params->get('dues_api_key'), ENT_COMPAT, 'UTF-8');
-			$mage_api_user = htmlspecialchars($params->get('dues_api_user'), ENT_COMPAT, 'UTF-8');
-			$mage_loc = htmlspecialchars($params->get('dues_loc'), ENT_COMPAT, 'UTF-8');
-			$client_url =  rtrim($mage_url, '/') . '/api/soap/?wsdl' ;
-			
-			$client = new SoapClient($client_url);
-			
-			$session = $client->login($mage_api_user,$mage_api_key);
-			$sku = $table->user_id . '-' . $table->year;
-			$cat_result = $client->call($session, 'catalog_category.level', array(null, null, 2));
-			
-			//check if cat exists
-			$cat_exists = false;
-			foreach ($cat_result as $r => $result) {
-				if($result["name"] == $table->user_id){
-					$cat_exists = true;
-					$cat_id = $result["category_id"];
-				}
-			}
-			if(!$cat_exists){ //create the category
-				$cat_id = $client->call($session, 'catalog_category.create', array(2, array(
-					'name' => $table->user_id,
-					'is_active' => 1,
-					'position' => 1,
-					
-					'available_sort_by' => 'position',
-					'custom_design' => null,
-					'custom_apply_to_products' => null,
-					'custom_design_from' => null,
-					'custom_design_to' => null,
-					'custom_layout_update' => null,
-					'default_sort_by' => 'position',
-					'description' => $table->user_id . ' Dues',
-					'display_mode' => null,
-					'is_anchor' => 0,
-					'landing_page' => null,
-					'meta_description' => 'Category meta description',
-					'meta_keywords' => 'Category meta keywords',
-					'meta_title' => 'Category meta title',
-					'page_layout' => 'two_columns_left',
-					'url_key' => $table->user_id,
-					'include_in_menu' => 0
-				)));
-			}
-			//check if item exists in category
-			$item_check = $client->call($session, 'catalog_category.assignedProducts', $cat_id);
-			$item_exists = false;
-			foreach ($item_check as $k => $inventory_item) {
-				if($inventory_item['sku'] == $sku){
-					$item_exists = true;
-				}
-			}
-			if(!$item_exists){//item doesn't exist, create it
-				// get attribute set
-				$attributeSets = $client->call($session, 'product_attribute_set.list');
-				$attributeSet = current($attributeSets);
-
-
-				$result = $client->call($session, 'catalog_product.create', array('simple', $attributeSet['set_id'], $sku, array(
-					'categories' => array($cat_id),
-					'websites' => array(1),
-					'name' => $member_name . ' Dues for ' . $table->year,
-					'description' => $member_name . ' Membership Dues for ' . $table->year,
-					'weight' => '0',
-					'status' => '1',
-					'url_key' => $sku,
-					//'url_path' => 'product-url-path',
-					'visibility' => '4',
-					'price' => '250',
-					'tax_class_id' => 0,
-					'meta_title' => 'Product meta title',
-					'meta_keyword' => 'Product meta keyword',
-					'meta_description' => 'Product meta description',
-					'stock_data' => array(
-						'qty' => '1',
-						'is_in_stock' => 1,
-						'manage_stock' => 1,
-						'min_qty' => 0,
-						'max_sale_qty' => 1,
-						'is_qty_decimal' => 0,
-						'backorders' => 0
-					)
-				)));
-			}
-			//finally adjust qty based on dues paid or unpaid
-			$productId = $sku;
-			$inv_qty = $state ? '0' : '1';
-			$stockItemData = array(
-				'qty' => $inv_qty,
-				'is_in_stock' => 1,
-				'manage_stock' => 1,
-				'use_config_manage_stock' => 0,
-				'min_qty' => 0,
-				'use_config_min_qty' => 0,
-				'min_sale_qty' => 1,
-				'use_config_min_sale_qty' => 0,
-				'max_sale_qty' => 1,
-				'use_config_max_sale_qty' => 0,
-				'is_qty_decimal' => 0,
-				'backorders' => 0,
-				'use_config_backorders' => 0,
-				'notify_stock_qty' => 10,
-				'use_config_notify_stock_qty' => 0
-			);
-
-			$result = $client->call(
-				$session,
-				'product_stock.update',
-				array(
-					$productId,
-					$stockItemData
-				)
-			);
-			
-			$client->endSession($session);
-			if($mage_loc != ""){
-				try{
-					array_map('unlink', glob($_SERVER['DOCUMENT_ROOT'] . '/' . trim($mage_loc,'/') . '/var/cache/mage--*/*')); 
-				} catch (Exception $e) {
-    				unset($e);
-				}
-				
-			}
+			//update Magento
+			DuesHelper::mageUpdate($table, $state);
 			
 		}
 
