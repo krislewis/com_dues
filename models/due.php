@@ -301,6 +301,8 @@ class DuesModelDue extends JModelAdmin
 			$table->modified = $date;
 			$table->modified_by = JFactory::getUser()->id;
 		}
+		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
+		DuesHelper::mageUpdate($table);
 
 	}
 
