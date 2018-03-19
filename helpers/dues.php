@@ -130,7 +130,7 @@ class DuesHelper extends JHelperContent
 	 * 
 	 * 
 	*/
-	public static function mageUpdate($user_id, $year, $state = 0)
+	public static function mageUpdate($user_id, $year, $state = 0, $mage_flush = TRUE)
 	{
 		//api magento call to first check if item exists, if not create, adjust inventory, flush
 		$inv_qty = $state ? '0' : '1';
@@ -240,7 +240,7 @@ class DuesHelper extends JHelperContent
 			);
 		}
 		$client->endSession($session); 
-		if($mage_loc != ""){
+		if($mage_loc != "" and $mage_flush){
 			try{
 				array_map('unlink', glob($_SERVER['DOCUMENT_ROOT'] . '/' . trim($mage_loc,'/') . '/var/cache/mage--*/*')); 
 			} catch (Exception $e) {
