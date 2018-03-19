@@ -255,6 +255,7 @@ class DuesModelDues extends JModelList
 		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
 		$query->insert($db->quoteName('#__user_dues'), false)
 					->columns($db->quoteName($columns));
+		$sleeper = 0;
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
@@ -265,6 +266,11 @@ class DuesModelDues extends JModelList
 						$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' , 0, ' . 
 						$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
 					);
+				$sleeper++;
+				if($sleeper > 25){
+					sleep(1.5);
+					$sleeper = 0;
+				}
 			}
 		}
 
