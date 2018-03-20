@@ -252,31 +252,40 @@ class DuesModelDues extends JModelList
 			'created_by',
 			'published'
 		);
+		$duesParams = JComponentHelper::getParams('com_dues');
+		$batch_limit = $duesParams->get('batch_limit');
+		$member_limit = $batch_limit == 1 ? 500 : $batch_limit;
 		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
 		$query->insert($db->quoteName('#__user_dues'), false)
 					->columns($db->quoteName($columns));
 		$sleeper = 0;
+		$limit_reached = FALSE;
 		foreach ($ActiveMembers as $ActiveMember)
 		{
 			if(!in_array($ActiveMember, $BatchYearDues)){//Make sure dues year+member doesn't already exist
 				//Magento API call to check for category and create if not exist, then add item to it
-				DuesHelper::mageUpdate($ActiveMember, $batch_year, 0, FALSE);
+				$cache_flush = $member_limit == $sleeper + 1 OR $member_limit == 500 ? TRUE : FALSE; //flush on last one
+				DuesHelper::mageUpdate($ActiveMember, $batch_year, 0, $cache_flush);
 			
 				$query->values(
 					$db->quote($ActiveMember) . ', ' . $db->quote($batch_year) . ' , 0, ' . 
 					$db->quote(JFactory::getDate()->toSql()) . ', ' . $db->quote($user->id) . ', 1'
 				);
 				$sleeper++;
-				if($sleeper > 10){
-					sleep(4);
-					$sleeper = 0;
+				if($sleeper >= $member_limit){
+					$limit_reached = TRUE;
+					break;
 				}
 			}
 		}
 
 		$db->setQuery($query);
 		$db->execute();
-
+		if($limit_reached){
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_DUES_WARNING_BATCH_LIMIT_REACHED'), 'warning');
+		}else{
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_DUES_WARNING_BATCH_DONE'), 'warning');
+		}
 		return true;
 	}
 }

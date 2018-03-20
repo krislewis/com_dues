@@ -40,6 +40,14 @@
 			default=""
 			rows="1"
 		/>
+		<field
+			name="batch_limit"
+			type="number"
+			label="COM_DUES_FIELD_CONFIG_BATCH_LIMIT"
+			description="COM_DUES_FIELD_CONFIG_BATCH_LIMIT_DESC"
+			default="1"
+			filter="integer"
+        />
 	</fieldset>
 
 	
