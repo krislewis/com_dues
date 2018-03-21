@@ -214,7 +214,6 @@ class DuesModelDues extends JModelList
 	 */
 	public function batchProcess($batch_year)
 	{
-		//include_once(JPATH_ADMINISTRATOR . '/components/com_dues/credentials.php');
 		function getActiveMembers()
 		{
 			$db    = JFactory::getDbo();
@@ -222,7 +221,7 @@ class DuesModelDues extends JModelList
 			// Select the required fields from the table.
 			$query->select($db->quoteName('a.user_id'));
 			$query->from($db->quoteName('#__comprofiler', 'a'));
-			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND ' . $db->quoteName('a.cb_memberstatus') . ' = "Active")');
+			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND (' . $db->quoteName('a.cb_memberstatus') . ' = "Active" OR ' . $db->quoteName('a.cb_memberstatus'). ' = "Affiliated"))');
 			$db->setQuery($query);
 			return $db->loadColumn();
 		}
@@ -254,7 +253,7 @@ class DuesModelDues extends JModelList
 		);
 		$duesParams = JComponentHelper::getParams('com_dues');
 		$batch_limit = $duesParams->get('batch_limit');
-		$member_limit = $batch_limit == 1 ? 500 : $batch_limit;
+		$member_limit = $batch_limit == 1 ? 500 : $batch_limit;//500 rather arbitrary, consider fixing
 		JLoader::register('DuesHelper', JPATH_COMPONENT . '/helpers/dues.php');
 		$query->insert($db->quoteName('#__user_dues'), false)
 					->columns($db->quoteName($columns));
