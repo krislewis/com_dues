@@ -284,7 +284,7 @@ class DuesModelDues extends JModelList
 		if($limit_reached){
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_DUES_WARNING_BATCH_LIMIT_REACHED'), 'warning');
 		}else{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_DUES_WARNING_BATCH_DONE'), 'warning');
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_DUES_WARNING_BATCH_DONE'), 'success');
 		}
 		return true;
 	}
