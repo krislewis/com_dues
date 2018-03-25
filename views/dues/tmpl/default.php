@@ -47,7 +47,7 @@ if ($saveOrder)
 							<?php echo JHtml::_('grid.checkall'); ?>
 						</th>
 						<th class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_PAID', 'a.paid', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_PAID', 'a.status', $listDirn, $listOrder); ?>
 						</th>
 						<th class="nowrap hidden-phone hidden-tablet">
 							<?php echo JHtml::_('searchtools.sort', 'COM_DUES_FIELD_LINKED_USER_LABEL', 'ul.name', $listDirn, $listOrder); ?>
