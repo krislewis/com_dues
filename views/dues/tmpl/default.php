@@ -101,7 +101,7 @@ if ($saveOrder)
 						</td>
 						<td class="break-word">
 							<?php if ($canEdit) : ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_dues&task=link.edit&id=' . $item->id); ?>"><?php echo $this->escape($item->linked_user); ?></a>
+								<a href="<?php echo JRoute::_('index.php?option=com_dues&task=due.edit&id=' . $item->id); ?>"><?php echo $this->escape($item->linked_user); ?></a>
 								
 							<?php endif; ?>
 						</td>
