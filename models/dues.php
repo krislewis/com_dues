@@ -221,7 +221,7 @@ class DuesModelDues extends JModelList
 			// Select the required fields from the table.
 			$query->select($db->quoteName('a.user_id'));
 			$query->from($db->quoteName('#__comprofiler', 'a'));
-			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND (' . $db->quoteName('a.cb_memberstatus') . ' = "Active" OR ' . $db->quoteName('a.cb_memberstatus'). ' = "Affiliated"))');
+			$query->where('(' . $db->quoteName('a.cb_memberlevel') . ' != "Non-Member User" AND (' . $db->quoteName('a.cb_memberstatus') . ' = "Active" OR ' . $db->quoteName('a.cb_memberstatus'). ' = "Affiliate"))');
 			$db->setQuery($query);
 			return $db->loadColumn();
 		}
